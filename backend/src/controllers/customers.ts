@@ -12,14 +12,11 @@ export const getCustomers = async (
     next: NextFunction
 ) => {
     try {
-        const queryKeys = Object.keys(req.query)
+        const queryKeys = Object.keys(req.query);
         for (let i = 0; i < queryKeys.length; i += 1) {
-            const key = queryKeys[i]
-            if (
-                typeof req.query[key] === 'object' &&
-                !Array.isArray(req.query[key])
-            ) {
-                return next(new BadRequestError('Неверный формат запроса'))
+            const key = queryKeys[i];
+            if (typeof req.query[key] === 'object' && !Array.isArray(req.query[key])) {
+                return next(new BadRequestError('Неверный формат запроса'));
             }
         }
 

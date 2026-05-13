@@ -22,27 +22,21 @@ const limiter = rateLimit({
     legacyHeaders: false,
     message: { message: 'Слишком много запросов, попробуйте позже' },
 })
+
 app.use(limiter)
 app.use(cookieParser())
-
 app.use(
     cors({
         origin: ORIGIN_ALLOW,
         credentials: true,
     })
 )
-
 app.use(serveStatic(path.join(__dirname, 'public')))
-
 app.use(urlencoded({ extended: true, limit: '10kb' }))
 app.use(json({ limit: '10kb' }))
-
 app.options('*', cors({ origin: ORIGIN_ALLOW, credentials: true }))
 app.use(routes)
-app.use(errors())
 app.use(errorHandler)
-
-// eslint-disable-next-line no-console
 
 const bootstrap = async () => {
     try {
